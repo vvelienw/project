@@ -8,6 +8,7 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('untitled.ui', self)
+
         self.pushButton_2.clicked.connect(self.run)
         self.PushButton.clicked.connect(self.open_second_form)
 
@@ -29,28 +30,30 @@ class SecondForm(QMainWindow):
         self.radioButton_3.clicked.connect(self.run)
         self.radioButton_2.clicked.connect(self.open_third_form)
 
-    def run(self):
-        print('Подумай ещё')
+
+    def run(self, vern):
+        if vern:
+            self.open_third_form()
+        else:
+            print('Подумай ещё')
 
     def open_third_form(self):
         self.third_form = SecondForm(self, "Данные для третьей формы")
+        self.third_form.label_3.setText('Готовы ли вы пожертвовать всем ради человечества?')
+        self.third_form.radioButton.setText('Атака Титанов')
+        self.third_form.radioButton_2.setText('Семь жизней')
+        self.third_form.radioButton_3.setText('Заклятие')
+        self.radioButton_2.clicked.connect(lambda: self.run(False))
+        self.radioButton_3.clicked.connect(lambda: self.run(False))
+        self.radioButton.clicked.connect(lambda: self.run(True))
         self.third_form.show()
         self.close()
 
-class FirdForm(QMainWindow):
-    def __init__(self, *args):
-        super().__init__()
-        uic.loadUi('untitled_1.ui', self)
-        self.radioButton.clicked.connect(self.run)
-        self.radioButton_3.clicked.connect(self.run)
-        self.radioButton_2.clicked.connect(self.open_fourth_form)
-
-    def run(self):
-        print('Подумай ещё')
-
-    def open_third_form(self):
-        self.fourth_form = SecondForm(self, "Данные для четвёртой формы")
-        self.fourth_form.show()
+    def run(self, w):
+        if w:
+            self.open_third_form()
+        else:
+            print('Подумай ещё')
 
 
 
