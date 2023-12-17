@@ -17,7 +17,7 @@ class MyWidget(QMainWindow):
 
 
     def open_second_form(self):
-        self.second_form = SecondForm(self, "Данные для второй формы")
+        self.second_form = SecondForm(self, True, False, False)
         self.second_form.show()
         self.close()
 
@@ -25,10 +25,11 @@ class MyWidget(QMainWindow):
 class SecondForm(QMainWindow):
     def __init__(self, *args):
         super().__init__()
+        answers = args
         uic.loadUi('untitled_1.ui', self)
-        self.radioButton.clicked.connect(self.run)
-        self.radioButton_3.clicked.connect(self.run)
-        self.radioButton_2.clicked.connect(self.open_third_form)
+        self.radioButton.clicked.connect(lambda: self.run(False))
+        self.radioButton_3.clicked.connect(lambda: self.run(False))
+        self.radioButton_2.clicked.connect(lambda: self.run(True))
 
 
     def run(self, vern):
@@ -38,22 +39,16 @@ class SecondForm(QMainWindow):
             print('Подумай ещё')
 
     def open_third_form(self):
-        self.third_form = SecondForm(self, "Данные для третьей формы")
+        self.third_form = SecondForm(QMainWindow)
         self.third_form.label_3.setText('Готовы ли вы пожертвовать всем ради человечества?')
-        self.third_form.radioButton.setText('Атака Титанов')
+        self.third_form.radioButton.setText('Заклятие')
         self.third_form.radioButton_2.setText('Семь жизней')
-        self.third_form.radioButton_3.setText('Заклятие')
+        self.third_form.radioButton_3.setText('Атака Титанов')
         self.radioButton_2.clicked.connect(lambda: self.run(False))
-        self.radioButton_3.clicked.connect(lambda: self.run(False))
-        self.radioButton.clicked.connect(lambda: self.run(True))
+        self.radioButton_3.clicked.connect(lambda: self.run(True))
+        self.radioButton.clicked.connect(lambda: self.run(False))
         self.third_form.show()
         self.close()
-
-    def run(self, w):
-        if w:
-            self.open_third_form()
-        else:
-            print('Подумай ещё')
 
 
 
