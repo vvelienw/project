@@ -1,5 +1,7 @@
 import sys
 
+import args as args
+import self as self
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QRadioButton
 
@@ -17,19 +19,20 @@ class MyWidget(QMainWindow):
 
 
     def open_second_form(self):
-        self.second_form = SecondForm(self, True, False, False)
+        self.second_form = SecondForm()
         self.second_form.show()
         self.close()
 
 
-class SecondForm(QMainWindow):
+class SecondForm(QWidget):
     def __init__(self, *args):
         super().__init__()
-        answers = args
+        answers = args[:]
         uic.loadUi('untitled_1.ui', self)
-        self.radioButton.clicked.connect(lambda: self.run(False))
-        self.radioButton_3.clicked.connect(lambda: self.run(False))
-        self.radioButton_2.clicked.connect(lambda: self.run(True))
+        self.radioButton.clicked.connect(args[0])
+        self.radioButton_3.clicked.connect(args[1])
+        self.radioButton_2.clicked.connect(args[2])
+        self.close()
 
 
     def run(self, vern):
@@ -39,17 +42,33 @@ class SecondForm(QMainWindow):
             print('Подумай ещё')
 
     def open_third_form(self):
-        self.third_form = SecondForm(QMainWindow)
+        third_form = FirdForm(True, False, False)
+        third_form.show()
+        self.close()
+
+class FirdForm(QWidget):
+     def __init__(self, *args):
+        super().__init__()
+        answers = args[:]
+        uic.loadUi('untitled_1.ui', self)
         self.third_form.label_3.setText('Готовы ли вы пожертвовать всем ради человечества?')
         self.third_form.radioButton.setText('Заклятие')
         self.third_form.radioButton_2.setText('Семь жизней')
         self.third_form.radioButton_3.setText('Атака Титанов')
-        self.radioButton_2.clicked.connect(lambda: self.run(False))
-        self.radioButton_3.clicked.connect(lambda: self.run(True))
-        self.radioButton.clicked.connect(lambda: self.run(False))
-        self.third_form.show()
-        self.close()
+        self.radioButton.clicked.connect(args[0])
+        self.radioButton_3.clicked.connect(args[1])
+        self.radioButton_2.clicked.connect(args[2])
 
+     def run(self, vern):
+         if vern:
+             self.open_secon_form()
+         else:
+             print('Подумай ещё')
+
+     def open_second_form(self):
+         second_form = SecondForm()
+         second_form.show()
+         self.close()
 
 
 if __name__ == '__main__':
