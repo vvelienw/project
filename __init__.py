@@ -10,7 +10,6 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('untitled.ui', self)
-
         self.pushButton_2.clicked.connect(self.run)
         self.PushButton.clicked.connect(self.open_second_form)
 
@@ -19,7 +18,7 @@ class MyWidget(QMainWindow):
 
 
     def open_second_form(self):
-        self.second_form = SecondForm()
+        self.second_form = SecondForm(True, False, False)
         self.second_form.show()
         self.close()
 
@@ -29,11 +28,9 @@ class SecondForm(QWidget):
         super().__init__()
         answers = args[:]
         uic.loadUi('untitled_1.ui', self)
-        self.radioButton.clicked.connect(args[0])
-        self.radioButton_3.clicked.connect(args[1])
-        self.radioButton_2.clicked.connect(args[2])
-        self.close()
-
+        self.radioButton.clicked.connect(lambda: self.run(args[0]))
+        self.radioButton_3.clicked.connect(lambda: self.run(args[1]))
+        self.radioButton_2.clicked.connect(lambda: self.run(args[2]))
 
     def run(self, vern):
         if vern:
@@ -42,11 +39,11 @@ class SecondForm(QWidget):
             print('Подумай ещё')
 
     def open_third_form(self):
-        third_form = FirdForm(True, False, False)
+        third_form = ThirdForm(True, False, False)
         third_form.show()
         self.close()
 
-class FirdForm(QWidget):
+class ThirdForm(QWidget):
      def __init__(self, *args):
         super().__init__()
         answers = args[:]
@@ -55,13 +52,13 @@ class FirdForm(QWidget):
         self.third_form.radioButton.setText('Заклятие')
         self.third_form.radioButton_2.setText('Семь жизней')
         self.third_form.radioButton_3.setText('Атака Титанов')
-        self.radioButton.clicked.connect(args[0])
-        self.radioButton_3.clicked.connect(args[1])
-        self.radioButton_2.clicked.connect(args[2])
+        self.radioButton.clicked.connect(lambda: self.run(args[0]))
+        self.radioButton_3.clicked.connect(lambda: self.run(args[1]))
+        self.radioButton_2.clicked.connect(lambda: self.run(args[2]))
 
      def run(self, vern):
          if vern:
-             self.open_secon_form()
+             self.open_second_form()
          else:
              print('Подумай ещё')
 
