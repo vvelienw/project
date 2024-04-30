@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+РћР±РЅРѕРІР»РµРЅРёРµ СЃС‚Р°С‚СЊРё
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>РћР±РЅРѕРІР»РµРЅРёРµ СЃС‚Р°С‚СЊРё</h1>
+    <form method="post">
+        <input type="text" name="title" id="title" class="form-control" value="{{ article.title }}" placeholder="Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ"><br>
+        <textarea name="intro" id="intro" class="form-control" placeholder="Р’РІРµРґРёС‚Рµ Р°РЅРѕРЅСЃ">{{ article.intro }}</textarea><br>
+        <textarea name="text" id="text" class="form-control" placeholder="Р’РІРµРґРёС‚Рµ РѕСЃРЅРѕРІРЅРѕР№ С‚РµРєСЃС‚">{{ article.text }}</textarea><br>
+        <input type="submit" class="btn btn-success" value="РћС‚РїСЂР°РІРёС‚СЊ">
+    </form>
+</div>
+{% endblock %}
